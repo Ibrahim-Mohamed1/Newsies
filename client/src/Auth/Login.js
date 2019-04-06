@@ -1,7 +1,45 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom"
+import { withData } from "../DataProvider"
 
 class Login extends Component {
+    constructor(){
+        super()
+        this.state={
+            username: "",
+            password: "",
+            errorMessage: ""
+        }
+    }
+
+    componentDidMount() {
+        this.props.getNewsTopics()
+    }
+
+    handleChange = (e) => {
+        const { name, value } = e.target
+        this.setState({
+            [name]: value
+        })
+    }
+
+    clearInputs = () => {
+        this.setState({
+            username: "",
+            password: "",
+            errorMessage: ""
+        })
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.props.login(this.state)
+            .then(() => this.props.history.push('/home'))
+            .catch(err => {
+                console.log('i am hit')
+                this.setState({errorMessage: err.response.data.message})
+            })
+    }
     render() {
         const styles={
             nav:{
@@ -52,6 +90,8 @@ class Login extends Component {
                 textDecoration:"none"
             }
         }
+
+        console.log(this.props.newsTopics)
         return (
             <div>
                 <div style={styles.nav}>
@@ -60,14 +100,36 @@ class Login extends Component {
                 </div>
                 <br style={{margin:0}}/>
                 <h1 style={styles.loginTitle}>Log in</h1>
-                <form onSubmit={() => {}}>
-                    <input style={styles.inputs} type="text"/>
-                    <input style={styles.inputs} type="text"/>
-                    <Link to="/home"><button style={styles.signinButton}>Sign in</button></Link>
+                <form onSubmit={this.handleSubmit}>
+                    <input 
+                        style={styles.inputs} 
+                        onChange={this.handleChange}
+                        value={this.state.username}
+                        name="username"
+                        type="text"
+                        placeholder="username"
+                        autoComplete="off"
+                        required
+                    />
+                    <input 
+                        style={styles.inputs} 
+                        onChange={this.handleChange}
+                        value={this.state.password}
+                        name="password"
+                        type="password"
+                        placeholder="password"
+                        autoComplete="off"
+                        required
+                    />
+                    <button style={styles.signinButton}>Sign in</button>
                 </form>
+                {
+                    this.state.errorMessage && 
+                    <p style={{color: "red", textAlign:"center"}}>{this.state.errorMessage}</p>
+                }
             </div>
         );
     }
 }
 
-export default Login;
+export default withData(Login);

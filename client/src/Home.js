@@ -1,8 +1,21 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom"
+import { withData } from "./DataProvider"
 
 class Home extends Component {
+    constructor(){
+        super()
+        this.state={
+
+        }
+    }
+
+    componentDidMount(){
+        this.props.getNewsTopics()
+    }
+    
     render() {
+        console.log(this.props)
         const styles={
             nav:{
                 display: "flex",
@@ -54,7 +67,7 @@ class Home extends Component {
             <div>
                 <div style={styles.nav}>
                     <Link to="/home"><img style={styles.logo} src="http://www.iconarchive.com/download/i99792/designbolts/free-multimedia/News-Mic-iPhone.ico" alt=""/></Link>
-                    <Link style={styles.link} to="/"><button style={styles.logout}>Log out</button></Link>
+                    <button style={styles.logout} onClick={() => this.props.logout()}>Log out</button>
                 </div>
                 <br style={{margin:0}}/>
                 <h1 style={styles.welcomeTitle}>Welcome</h1>
@@ -62,10 +75,10 @@ class Home extends Component {
                     <option type="text">Hola</option>
                     <option type="text">Hi</option>
                 </select>
-                    <Link to="/news"><button style={styles.submitButton}  onSubmit={() => {}}>Submit</button></Link>
+                    <Link to="/news"><button style={styles.submitButton} onSubmit={() => {}}>Submit</button></Link>
             </div>
         );
     }
 }
 
-export default Home;
+export default withData(Home);

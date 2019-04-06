@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom"
+import { withData } from "./DataProvider"
 
 class News extends Component {
     render() {
@@ -17,14 +18,14 @@ class News extends Component {
                 marginTop: -30,
                 marginLeft: '7%',
                 marginRight: '7%',
-                height: "65vh",
+                height: "35em",
                 overflowY:"scroll",
                 border: "groove",
                 padding: 10,
                 borderRadius: 5
             },
             child: {
-                border: "dashed",
+                border: "dashed red",
                 borderRadius: 5,
                 height: 300
             },
@@ -75,7 +76,7 @@ class News extends Component {
                 <div style={styles.nav}>
                     <Link to="/home"><img style={styles.logo} src="http://www.iconarchive.com/download/i99792/designbolts/free-multimedia/News-Mic-iPhone.ico" alt="" /></Link>
                     <Link style={styles.link} to="/home"><button style={styles.back}>Back</button></Link>
-                    <Link style={styles.link} to="/"><button style={styles.logout}>Log out</button></Link>
+                    <button style={styles.logout} onClick={() => this.props.logout()}>Log out</button>
                 </div>
                 <h1 style={styles.sectionTitle}>Section Title</h1>
                 <div style={styles.parent}>
@@ -154,4 +155,4 @@ class News extends Component {
     }
 }
 
-export default News;
+export default withData(News);

@@ -1,14 +1,43 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom"
+import { withData } from "../DataProvider"
 
 class SignUp extends Component {
     constructor(){
         super()
         this.state={
-
+            username: "",
+            password: "",
+            errorMessage: ""
         }
     }
+
+    handleChange = (e) => {
+        const { name, value } = e.target
+        this.setState({
+            [name]: value
+        })
+    }
+
+    clearInputs = () => {
+        this.setState({
+            username: "",
+            password: "",
+            errorMessage: ""
+        })
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.props.signup(this.state)
+            .then(() => this.props.history.push("/home"))
+            .catch(err => {
+                this.setState({errorMessage: err.response.data.message})
+            })
+    }
+
     render() {
+        // console.log(this.props)
         const styles={            
             nav:{
             display: "flex",
@@ -66,14 +95,34 @@ class SignUp extends Component {
                 </div>
                 <br style={{margin:0}}/>
                 <h1 style={styles.signupTitle}>Sign up</h1>
-                <form onSubmit={() => {}}>
-                    <input style={styles.inputs} type="text"/>
-                    <input style={styles.inputs} type="text"/>
+                <form onSubmit={this.handleSubmit}>
+                    <input 
+                        style={styles.inputs} 
+                        onChange={this.handleChange}
+                        value={this.state.username}
+                        name="username"
+                        type="text"
+                        placeholder="Username"
+                        autoComplete="off"
+                    />
+                    <input 
+                        style={styles.inputs} 
+                        onChange={this.handleChange}
+                        value={this.state.password}
+                        name="password"
+                        type="password"
+                        placeholder="Password"
+                        autoComplete="off"
+                    />
                     <button style={styles.signupButton}>Sign up</button>
                 </form>
+                {
+                    this.state.errorMessage && 
+                    <p style={{color: "red", textAlign:"center"}}>{this.state.errorMessage}</p>
+                }
             </div>
         );
     }
 }
 
-export default SignUp;
+export default withData(SignUp);
