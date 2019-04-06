@@ -6,6 +6,8 @@ class DataProvider extends Component {
     constructor(){
         super()
         this.state={
+            name: "",
+            news: [],
             newsTopics: [],
             user: JSON.parse(localStorage.getItem("user")) || {},
             token: localStorage.getItem("token") || ""
@@ -13,13 +15,21 @@ class DataProvider extends Component {
     }
 
     getNewsTopics = () => {
-        axios.get('https://content.guardianapis.com/sections', { headers: { "user-key": `${process.env.REACT_APP_KEY}` } })
-            .then(response => {
-                this.setState({ newsTopics: response.data });
-                console.log(response)
-                return response;
+        axios.get(`https://vschool-cors.herokuapp.com?url=https://content.guardianapis.com/sections?api-key=eda5b087-7c49-426f-8c8c-1e812d03031c`)
+        .then(response => {
+            this.setState({ newsTopics: response.data.response.results });
+            // console.log(this.state.newsTopics.results)
+        })
+    }
+
+    getNews = (key) => {
+        axios.get(`https://vschool-cors.herokuapp.com?url=https://content.guardianapis.com/search?sections=${key}?q=${key}&api-key=eda5b087-7c49-426f-8c8c-1e812d03031c`)
+        .then(response => {
+            this.setState({
+                news: response.data.response.results,
+                name: response.data
             })
-            console.log(this.state.newsTopics)
+        })
     }
 
     signup = (userInfo) => {
@@ -66,6 +76,7 @@ class DataProvider extends Component {
                 signup: this.signup,
                 login: this.login,
                 logout: this.logout,
+                getNews: this.getNews,
                 getNewsTopics: this.getNewsTopics,
                 ...this.state
             }}

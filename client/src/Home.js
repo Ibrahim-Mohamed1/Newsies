@@ -6,14 +6,24 @@ class Home extends Component {
     constructor(){
         super()
         this.state={
-
+            value: ""
         }
     }
 
     componentDidMount(){
         this.props.getNewsTopics()
     }
-    
+
+    handleChange = (e) => {
+        e.preventDefault()
+        this.setState({ value: e.target.value })
+    }
+
+    handleSubmit = () => {
+        this.props.getNews(this.state.value)
+        console.log(this.state.value)
+    }
+
     render() {
         console.log(this.props)
         const styles={
@@ -63,6 +73,8 @@ class Home extends Component {
                 textDecoration:"none"
             }
         }
+
+        const mappedTopics = this.props.newsTopics.map(topic => <option value={topic.id} key={topic.webTitle}>{topic.webTitle}</option>)
         return (
             <div>
                 <div style={styles.nav}>
@@ -71,11 +83,11 @@ class Home extends Component {
                 </div>
                 <br style={{margin:0}}/>
                 <h1 style={styles.welcomeTitle}>Welcome</h1>
-                <select style={styles.select}>
-                    <option type="text">Hola</option>
-                    <option type="text">Hi</option>
+                <select style={styles.select} onChange={this.handleChange}>
+                    <option value="">Please select</option>
+                    {mappedTopics}
                 </select>
-                    <Link to="/news"><button style={styles.submitButton} onSubmit={() => {}}>Submit</button></Link>
+                <Link to="/news"><button style={styles.submitButton} onClick={this.handleSubmit}>Submit</button></Link>
             </div>
         );
     }

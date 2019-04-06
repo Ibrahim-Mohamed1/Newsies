@@ -3,6 +3,9 @@ import { Link } from "react-router-dom"
 import { withData } from "./DataProvider"
 
 class News extends Component {
+    componentDidMount(){
+        this.props.getNews()
+    }
     render() {
         const styles = {
             nav:{
@@ -12,13 +15,13 @@ class News extends Component {
             },
             parent: {
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fit,minmax(300px, 1fr))",
+                gridTemplateColumns: "repeat(auto-fit,minmax( 1fr))",
                 textAlign: "center",
                 gridGap: 10,
                 marginTop: -30,
-                marginLeft: '7%',
-                marginRight: '7%',
-                height: "35em",
+                marginLeft: '1%',
+                marginRight: '1%',
+                height: "77vh",
                 overflowY:"scroll",
                 border: "groove",
                 padding: 10,
@@ -71,6 +74,8 @@ class News extends Component {
                 textDecoration: "none"
             }
         }
+        console.log(this.props)
+        const mappedNews = this.props.news.map(article => <div style={styles.child}><a><h2>{article.webTitle}<span>{article.webPublicationDate}</span></h2></a></div>)
         return (
             <div>
                 <div style={styles.nav}>
@@ -78,76 +83,9 @@ class News extends Component {
                     <Link style={styles.link} to="/home"><button style={styles.back}>Back</button></Link>
                     <button style={styles.logout} onClick={() => this.props.logout()}>Log out</button>
                 </div>
-                <h1 style={styles.sectionTitle}>Section Title</h1>
+                <h1 style={styles.sectionTitle}>{this.props.name.webTitle}</h1>
                 <div style={styles.parent}>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
-                    <div style={styles.child}></div>
+                    {mappedNews}
                 </div>
                 <br/>
             </div>
