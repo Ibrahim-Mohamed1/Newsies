@@ -65,12 +65,20 @@ class Home extends Component {
                 zoom: 2.5,
                 display:"block",
                 margin: "auto",
+                marginTop: 50,
                 backgroundColor:"orange",
                 borderRadius: 5,
                 outline: "none"
             },
             link:{
                 textDecoration:"none"
+            },
+            options:{
+                display: "block",
+                margin: "auto",
+                zoom: 3.5,
+                heigt: 5,
+                marginTop: "1.2em",
             }
         }
 
@@ -83,7 +91,7 @@ class Home extends Component {
                 </div>
                 <br style={{margin:0}}/>
                 <h1 style={styles.welcomeTitle}>Welcome</h1>
-                <select style={styles.select} onChange={this.handleChange}>
+                <select style={styles.options} onChange={this.handleChange}>
                     <option value="">Please select</option>
                     {mappedTopics}
                 </select>

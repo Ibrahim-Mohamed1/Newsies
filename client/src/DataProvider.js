@@ -15,22 +15,21 @@ class DataProvider extends Component {
     }
 
     getNewsTopics = () => {
-        axios.get(`https://vschool-cors.herokuapp.com?url=https://content.guardianapis.com/sections?api-key=eda5b087-7c49-426f-8c8c-1e812d03031c`)
+        axios.get(`https://vschool-cors.herokuapp.com?url=https://newsapi.org/v2/top-headlines?sources=crypto-coins-news&apiKey=${process.env.REACT_APP_NS}`)
         .then(response => {
             this.setState({ newsTopics: response.data.response.results });
             // console.log(this.state.newsTopics.results)
         })
     }
 
-    getNews = (key) => {
-        axios.get(`https://vschool-cors.herokuapp.com?url=https://content.guardianapis.com/search?sections=${key}?q=${key}&api-key=eda5b087-7c49-426f-8c8c-1e812d03031c`)
-        .then(response => {
+    getNews = () => {
+        axios.get(`https://vschool-cors.herokuapp.com?url=https://newsapi.org/v2/top-headlines?sources=crypto-coins-news&apiKey=${process.env.REACT_APP_NS}`)
+          .then(res => {
             this.setState({
-                news: response.data.response.results,
-                name: response.data
+              news: res.data
             })
-        })
-    }
+          })
+      }
 
     signup = (userInfo) => {
         return axios.post("/auth/signup", userInfo)
