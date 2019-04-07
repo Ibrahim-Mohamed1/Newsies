@@ -12,6 +12,10 @@ class SignUp extends Component {
         }
     }
 
+    componentDidMount(){
+        // this.props.getNews()
+    }
+
     handleChange = (e) => {
         const { name, value } = e.target
         this.setState({
@@ -37,7 +41,6 @@ class SignUp extends Component {
     }
 
     render() {
-        // console.log(this.props)
         const styles={            
             nav:{
             display: "flex",
@@ -45,10 +48,12 @@ class SignUp extends Component {
             justifyContent: "space-between"
         },
             logo:{
-                width: 50,
+                width: 65,
                 float: "left",
                 margin: 5,
-                cursor: "pointer"
+                cursor: "pointer",
+                boxShadow: "0px 0px 5px #000",
+                borderRadius: "50%"
             },
             login:{
                 zoom: 2,
@@ -56,14 +61,14 @@ class SignUp extends Component {
                 borderRadius: 5,
                 float: "right",
                 margin: 5,
-                backgroundColor:"orange",
+                backgroundColor:"#48ceac",
                 cursor: "pointer"
             },
             signupTitle:{
                 textAlign:"center",
-                marginTop: 100,
+                margin: 0,
                 fontSize: "5em",
-                color: "white",
+                color: "#48ceac",
                 marginBottom: 30
             },
             inputs:{
@@ -79,12 +84,22 @@ class SignUp extends Component {
                 zoom: 2.5,
                 display:"block",
                 margin: "auto",
-                backgroundColor:"orange",
+                backgroundColor:"#48ceac",
                 borderRadius: 5,
                 outline:"none"
             },
             link:{
                 textDecoration:"none"
+            },
+            box:{
+                backgroundColor:"rgba(0, 0, 0, 0.7)",
+                display: "block",
+                margin: "auto",
+                height: 350,
+                width: 350,
+                marginTop:100,
+                paddingTop: 40,
+                borderRadius: 10
             }
         }
         return (
@@ -94,31 +109,36 @@ class SignUp extends Component {
                     <Link style={styles.link} to="/"><button style={styles.login}>Sign in</button></Link>
                 </div>
                 <br style={{margin:0}}/>
-                <h1 style={styles.signupTitle}>Sign up</h1>
-                <form onSubmit={this.handleSubmit}>
-                    <input 
-                        style={styles.inputs} 
-                        onChange={this.handleChange}
-                        value={this.state.username}
-                        name="username"
-                        type="text"
-                        placeholder="Username"
-                        autoComplete="off"
-                    />
-                    <input 
-                        style={styles.inputs} 
-                        onChange={this.handleChange}
-                        value={this.state.password}
-                        name="password"
-                        type="password"
-                        placeholder="Password"
-                        autoComplete="off"
-                    />
-                    <button style={styles.signupButton}>Sign up</button>
-                </form>
+                <div style={styles.box}>
+                    <h1 style={styles.signupTitle}>Sign up</h1>
+                    <form onSubmit={this.handleSubmit}>
+                        <input 
+                            style={styles.inputs} 
+                            onChange={this.handleChange}
+                            value={this.state.username}
+                            name="username"
+                            type="text"
+                            placeholder="username"
+                            autoComplete="off"
+                            autoFocus
+                            required
+                        />
+                        <input 
+                            style={styles.inputs} 
+                            onChange={this.handleChange}
+                            value={this.state.password}
+                            name="password"
+                            type="password"
+                            placeholder="password"
+                            autoComplete="off"
+                            required
+                        />
+                        <button style={styles.signupButton}>Sign up</button>
+                    </form>
+                </div>
                 {
                     this.state.errorMessage && 
-                    <p style={{color: "red", textAlign:"center"}}>{this.state.errorMessage}</p>
+                    <p style={{color: "red", textAlign:"center", backgroundColor: "white", width: 200, display: "block", margin: "auto", marginTop: 20, borderRadius: 10, border:"solid .5px"}}>{this.state.errorMessage}</p>
                 }
             </div>
         );

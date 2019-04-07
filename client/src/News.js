@@ -7,6 +7,7 @@ class News extends Component {
         this.props.getNews()
     }
     render() {
+        console.log(this.props)
         const styles = {
             nav:{
                 display: "flex",
@@ -18,14 +19,15 @@ class News extends Component {
                 gridTemplateColumns: "repeat(auto-fit,minmax( 1fr))",
                 textAlign: "center",
                 gridGap: 10,
-                marginTop: -30,
+                marginTop: 10,
                 marginLeft: '1%',
                 marginRight: '1%',
                 height: "77vh",
                 overflowY:"scroll",
-                border: "groove",
+                border: "groove #48ceac",
                 padding: 10,
-                borderRadius: 5
+                borderRadius: 15,
+                backgroundColor:"rgba(0, 0, 0, 0.7)",
             },
             child: {
                 border: "dashed red",
@@ -33,10 +35,12 @@ class News extends Component {
                 height: 300
             },
             logo: {
-                width: 50,
+                width: 65,
                 float: "left",
                 margin: 5,
-                cursor: "pointer"
+                cursor: "pointer",
+                boxShadow: "0px 0px 5px #000",
+                borderRadius: "50%"
             },
             logout: {
                 zoom: 2,
@@ -44,17 +48,23 @@ class News extends Component {
                 borderRadius: 5,
                 float: "right",
                 margin: 5,
-                backgroundColor: "orange",
-                cursor: "pointer"
+                backgroundColor:"rgba(255, 0, 0, .4)",
+                cursor: "pointer",
+                height: 20,
+                border: "solid red",
+                color: "white"
             },
             back:{
                 zoom: 2,
-                outline:"none",
+                outline: "none",
                 borderRadius: 5,
-                textAlign:"center",
+                float: "right",
                 margin: 5,
-                backgroundColor: "lime",
-                cursor: "pointer"
+                backgroundColor:"rgb(0, 255, 0, .4)",
+                cursor: "pointer",
+                height: 20,
+                border: "solid lime",
+                color: "white"
             },
             sectionTitle: {
                 textAlign: "center",
@@ -62,20 +72,27 @@ class News extends Component {
                 color: "white",
                 marginTop: 0
             },
-            submitButton: {
-                zoom: 2.5,
-                display: "block",
-                margin: "auto",
-                backgroundColor: "orange",
-                borderRadius: 5,
-                outline: "none"
-            },
             link: {
                 textDecoration: "none"
+            },
+            box:{
+                margin: "0% 2%", 
+                border:"solid ",
+                borderRadius: 10,
+                backgroundColor:"rgba(255, 255, 255, 0.7)",
+                marginTop: 20,
+                marginBottom: 10
             }
         }
-        console.log(this.props)
-        const mappedNews = this.props.news.map(article => <div style={styles.child}><a><h2>{article.webTitle}<span>{article.webPublicationDate}</span></h2></a></div>)
+        const mappedNews = this.props.news.articles && this.props.news.articles.map((article, n) => {
+            return (
+                    <div style={styles.box} key={article.publishedAt+n}>
+                        <h2 style={{ color: "black" }}>{article.title}</h2>
+                        <img style={{ width: "45%" }} alt="" src={article.urlToImage} />
+                        <p>{article.description}... <a target="_blank" rel="noopener noreferrer" href={article.url} style={{ color: "red" }}>Read More</a></p>
+                    </div>
+            )
+        })        
         return (
             <div>
                 <div style={styles.nav}>
@@ -83,7 +100,6 @@ class News extends Component {
                     <Link style={styles.link} to="/home"><button style={styles.back}>Back</button></Link>
                     <button style={styles.logout} onClick={() => this.props.logout()}>Log out</button>
                 </div>
-                <h1 style={styles.sectionTitle}>{this.props.name.webTitle}</h1>
                 <div style={styles.parent}>
                     {mappedNews}
                 </div>

@@ -17,8 +17,8 @@ const Footer = () => {
     }
     return (
         <div style={styles.parent}>
-            <SocialIcon style={styles.socialIcons} target="_blank" url="https://www.linkedin.com/in/ibrahim-mohamed-/" network="linkedin" bgColor="black" fgColor="white"/>
-            <SocialIcon style={styles.socialIcons} target="_blank" url="https://github.com/ibrahim-mohamed1" network="github" bgColor="black" fgColor="white"/>
+            <SocialIcon style={styles.socialIcons} target="_blank" url="https://www.linkedin.com/in/ibrahim-mohamed-/" network="linkedin" bgColor="black" fgColor="#48ceac"/>
+            <SocialIcon style={styles.socialIcons} target="_blank" url="https://github.com/ibrahim-mohamed1" network="github" bgColor="black" fgColor="#48ceac"/>
         </div>
     );
 };

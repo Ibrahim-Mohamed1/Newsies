@@ -8,25 +8,20 @@ class DataProvider extends Component {
         this.state={
             name: "",
             news: [],
-            newsTopics: [],
             user: JSON.parse(localStorage.getItem("user")) || {},
             token: localStorage.getItem("token") || ""
         }
     }
 
-    getNewsTopics = () => {
-        axios.get(`https://vschool-cors.herokuapp.com?url=https://newsapi.org/v2/top-headlines?sources=crypto-coins-news&apiKey=${process.env.REACT_APP_NS}`)
-        .then(response => {
-            this.setState({ newsTopics: response.data.response.results });
-            // console.log(this.state.newsTopics.results)
-        })
+    componentDidMount() {
+        // this.getNews()
     }
 
-    getNews = () => {
-        axios.get(`https://vschool-cors.herokuapp.com?url=https://newsapi.org/v2/top-headlines?sources=crypto-coins-news&apiKey=${process.env.REACT_APP_NS}`)
-          .then(res => {
+    getNews = (key) => {
+        axios.get(`https://vschool-cors.herokuapp.com?url=https://newsapi.org/v2/everything?language=en&q=${key}&apiKey=${process.env.REACT_APP_NS}`)
+          .then(response => {
             this.setState({
-              news: res.data
+              news: response.data
             })
           })
       }
@@ -55,7 +50,7 @@ class DataProvider extends Component {
                     user,
                     token
                 });
-                this.getNewsTopics();
+                this.getNews();
                 return response;
             })
     }
@@ -76,7 +71,6 @@ class DataProvider extends Component {
                 login: this.login,
                 logout: this.logout,
                 getNews: this.getNews,
-                getNewsTopics: this.getNewsTopics,
                 ...this.state
             }}
             >

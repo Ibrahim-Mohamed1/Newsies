@@ -13,7 +13,7 @@ class Login extends Component {
     }
 
     componentDidMount() {
-        this.props.getNewsTopics()
+        // this.props.getNews()
     }
 
     handleChange = (e) => {
@@ -36,7 +36,6 @@ class Login extends Component {
         this.props.login(this.state)
             .then(() => this.props.history.push('/home'))
             .catch(err => {
-                console.log('i am hit')
                 this.setState({errorMessage: err.response.data.message})
             })
     }
@@ -48,10 +47,12 @@ class Login extends Component {
                 justifyContent: "space-between"
             },
             logo:{
-                width: 50,
+                width: 65,
                 float: "left",
                 margin: 5,
-                cursor: "pointer"
+                cursor: "pointer",
+                boxShadow: "0px 0px 5px #000",
+                borderRadius: "50%"
             },
             signup:{
                 zoom: 2,
@@ -59,14 +60,14 @@ class Login extends Component {
                 borderRadius: 5,
                 float: "right",
                 margin: 5,
-                backgroundColor:"orange",
+                backgroundColor:"#48ceac",
                 cursor: "pointer"
             },
             loginTitle:{
                 textAlign:"center",
-                marginTop: 100,
+                margin: 0,
                 fontSize: "5em",
-                color: "white",
+                color: "#48ceac",
                 marginBottom: 30
             },
             inputs:{
@@ -82,47 +83,61 @@ class Login extends Component {
                 zoom: 2.5,
                 display:"block",
                 margin: "auto",
-                backgroundColor:"orange",
+                backgroundColor:"#48ceac",
                 borderRadius: 5,
                 outline: "none"
             },
             link:{
                 textDecoration:"none"
+            },
+            box:{
+                backgroundColor:"rgba(0, 0, 0, 0.7)",
+                display: "block",
+                margin: "auto",
+                height: 350,
+                width: 350,
+                marginTop:100,
+                paddingTop: 40,
+                borderRadius: 10
             }
         }
 
-        console.log(this.props.newsTopics)
         return (
             <div>
                 <div style={styles.nav}>
                     <Link to="/"><img style={styles.logo} src="http://www.iconarchive.com/download/i99792/designbolts/free-multimedia/News-Mic-iPhone.ico" alt=""/></Link>
                     <Link style={styles.link} to="/signup"><button style={styles.signup}>Sign up</button></Link>
                 </div>
-                <br style={{margin:0}}/>
-                <h1 style={styles.loginTitle}>Log in</h1>
-                <form onSubmit={this.handleSubmit}>
-                    <input 
-                        style={styles.inputs} 
-                        onChange={this.handleChange}
-                        value={this.state.username}
-                        name="username"
-                        type="text"
-                        placeholder="username"
-                        autoComplete="off"
-                        required
-                    />
-                    <input 
-                        style={styles.inputs} 
-                        onChange={this.handleChange}
-                        value={this.state.password}
-                        name="password"
-                        type="password"
-                        placeholder="password"
-                        autoComplete="off"
-                        required
-                    />
-                    <button style={styles.signinButton}>Sign in</button>
-                </form>
+                br
+                <div style={styles.box}>
+                    <>
+                    <h1 style={styles.loginTitle}>Log in</h1>
+                    <form onSubmit={this.handleSubmit}>
+                        <input 
+                            style={styles.inputs} 
+                            onChange={this.handleChange}
+                            value={this.state.username}
+                            name="username"
+                            type="text"
+                            placeholder="username"
+                            autoComplete="off"
+                            autoFocus
+                            required
+                        />
+                        <input 
+                            style={styles.inputs} 
+                            onChange={this.handleChange}
+                            value={this.state.password}
+                            name="password"
+                            type="password"
+                            placeholder="password"
+                            autoComplete="off"
+                            required
+                        />
+                        <button style={styles.signinButton}>Sign in</button>
+                    </form>
+                    </>
+                </div>
                 {
                     this.state.errorMessage && 
                     <p style={{color: "red", textAlign:"center"}}>{this.state.errorMessage}</p>

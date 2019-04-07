@@ -11,7 +11,7 @@ class Home extends Component {
     }
 
     componentDidMount(){
-        this.props.getNewsTopics()
+        this.props.getNews()
     }
 
     handleChange = (e) => {
@@ -21,11 +21,9 @@ class Home extends Component {
 
     handleSubmit = () => {
         this.props.getNews(this.state.value)
-        console.log(this.state.value)
     }
 
     render() {
-        console.log(this.props)
         const styles={
             nav:{
                 display: "flex",
@@ -33,10 +31,12 @@ class Home extends Component {
                 justifyContent: "space-between"
             },
             logo:{
-                width: 50,
+                width: 65,
                 float: "left",
                 margin: 5,
-                cursor: "pointer"
+                cursor: "pointer",
+                boxShadow: "0px 0px 5px #000",
+                borderRadius: "50%"
             },
             logout:{
                 zoom: 2,
@@ -44,45 +44,54 @@ class Home extends Component {
                 borderRadius: 5,
                 float: "right",
                 margin: 5,
-                backgroundColor:"orange",
-                cursor: "pointer"
+                backgroundColor:"rgba(255, 0, 0, .4)",
+                cursor: "pointer",
+                height: 20,
+                border: "solid red",
+                color: "white"
             },
             welcomeTitle:{
                 textAlign:"center",
-                marginTop: 60,
-                fontSize: "4em",
-                color: "white",
+                margin: 0,
+                fontSize: "5em",
+                color: "#48ceac",
                 marginBottom: 30
-            },
-            select:{
-                zoom: 2.5,
-                display:"block",
-                margin:"auto",
-                marginBottom: 10,
-                border:"solid"
             },
             submitButton:{
                 zoom: 2.5,
                 display:"block",
                 margin: "auto",
-                marginTop: 50,
-                backgroundColor:"orange",
+                backgroundColor:"#48ceac",
                 borderRadius: 5,
-                outline: "none"
+                outline: "none",
+                marginTop: 20,
             },
             link:{
                 textDecoration:"none"
             },
-            options:{
+            form:{
                 display: "block",
                 margin: "auto",
-                zoom: 3.5,
-                heigt: 5,
+                zoom: 2.3,
+                height: 15,
                 marginTop: "1.2em",
+                outline: "none",
+                borderRadius: 5,
+                border: "none",
+                textAlign: "center"
+            },
+            box:{
+                backgroundColor:"rgba(0, 0, 0, 0.7)",
+                display: "block",
+                margin: "auto",
+                height: 350,
+                width: 350,
+                marginTop:100,
+                paddingTop: 40,
+                borderRadius: 10,
             }
         }
 
-        const mappedTopics = this.props.newsTopics.map(topic => <option value={topic.id} key={topic.webTitle}>{topic.webTitle}</option>)
         return (
             <div>
                 <div style={styles.nav}>
@@ -90,12 +99,13 @@ class Home extends Component {
                     <button style={styles.logout} onClick={() => this.props.logout()}>Log out</button>
                 </div>
                 <br style={{margin:0}}/>
-                <h1 style={styles.welcomeTitle}>Welcome</h1>
-                <select style={styles.options} onChange={this.handleChange}>
-                    <option value="">Please select</option>
-                    {mappedTopics}
-                </select>
-                <Link to="/news"><button style={styles.submitButton} onClick={this.handleSubmit}>Submit</button></Link>
+                <div style={styles.box}>
+                    <h1 style={styles.welcomeTitle}>Welcome</h1>
+                    <form onClick={this.handleSubmit}>
+                        <input style={styles.form} type="text" onChange={this.handleChange} placeholder="Search news topic" autoFocus required/>
+                    <Link style={styles.link} to="/news"><button style={styles.submitButton}>Submit</button></Link>
+                    </form>
+                </div>
             </div>
         );
     }
