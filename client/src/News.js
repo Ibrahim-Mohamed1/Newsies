@@ -4,10 +4,9 @@ import { withData } from "./DataProvider"
 
 class News extends Component {
     componentDidMount(){
-        this.props.getNews()
+        // this.props.getNews()
     }
     render() {
-        console.log(this.props)
         const styles = {
             nav:{
                 display: "flex",
@@ -16,23 +15,22 @@ class News extends Component {
             },
             parent: {
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fit,minmax( 1fr))",
+                gridTemplateColumns: "repeat(auto-fit,minmax(390px, 1fr))",
                 textAlign: "center",
                 gridGap: 10,
                 marginTop: 10,
                 marginLeft: '1%',
                 marginRight: '1%',
-                height: "77vh",
+                height: "80vh",
                 overflowY:"scroll",
                 border: "groove #48ceac",
-                padding: 10,
                 borderRadius: 15,
                 backgroundColor:"rgba(0, 0, 0, 0.7)",
             },
             child: {
                 border: "dashed red",
                 borderRadius: 5,
-                height: 300
+                height: 300,
             },
             logo: {
                 width: 65,
@@ -79,19 +77,20 @@ class News extends Component {
                 margin: "0% 2%", 
                 border:"solid ",
                 borderRadius: 10,
-                backgroundColor:"rgba(255, 255, 255, 0.7)",
+                backgroundColor:"rgba(255, 255, 255, 0.8)",
                 marginTop: 20,
                 marginBottom: 10
             }
         }
         const mappedNews = this.props.news.articles && this.props.news.articles.map((article, n) => {
-            return (
-                    <div style={styles.box} key={article.publishedAt+n}>
-                        <h2 style={{ color: "black" }}>{article.title}</h2>
-                        <img style={{ width: "45%" }} alt="" src={article.urlToImage} />
-                        <p>{article.description}... <a target="_blank" rel="noopener noreferrer" href={article.url} style={{ color: "red" }}>Read More</a></p>
-                    </div>
-            )
+            let num = this.props.news
+                return (
+                        <div style={styles.box} key={article.publishedAt+n}>
+                            <h2 style={{ color: "black" }}>{article.title}</h2>
+                            <img style={{ width: "45%" }} alt="" src={article.urlToImage} />
+                            <p>{article.description}... <a target="_blank" rel="noopener noreferrer" href={article.url} style={{ color: "red" }}>Read More</a></p>
+                        </div>
+                )
         })        
         return (
             <div>

@@ -11,7 +11,7 @@ class Home extends Component {
     }
 
     componentDidMount(){
-        this.props.getNews()
+        // this.props.getNews()
     }
 
     handleChange = (e) => {
@@ -102,7 +102,7 @@ class Home extends Component {
                 <div style={styles.box}>
                     <h1 style={styles.welcomeTitle}>Welcome</h1>
                     <form onClick={this.handleSubmit}>
-                        <input style={styles.form} type="text" onChange={this.handleChange} placeholder="Search news topic" autoFocus required/>
+                        <input style={styles.form} type="text" onChange={this.handleChange} placeholder="Search a news topic" autoFocus required/>
                     <Link style={styles.link} to="/news"><button style={styles.submitButton}>Submit</button></Link>
                     </form>
                 </div>

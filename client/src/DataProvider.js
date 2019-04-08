@@ -6,7 +6,6 @@ class DataProvider extends Component {
     constructor(){
         super()
         this.state={
-            name: "",
             news: [],
             user: JSON.parse(localStorage.getItem("user")) || {},
             token: localStorage.getItem("token") || ""
@@ -14,15 +13,28 @@ class DataProvider extends Component {
     }
 
     componentDidMount() {
-        // this.getNews()
+        this.getNews()
     }
 
     getNews = (key) => {
-        axios.get(`https://vschool-cors.herokuapp.com?url=https://newsapi.org/v2/everything?language=en&q=${key}&apiKey=${process.env.REACT_APP_NS}`)
+        axios.get(`https://vschool-cors.herokuapp.com?url=https://newsapi.org/v2/top-headlines?language=en&sortBy=publishedAt&q=${key}&apiKey=${process.env.REACT_APP_NS}`)
           .then(response => {
-            this.setState({
-              news: response.data
-            })
+              if (response.data.totalResults > 5){
+                this.setState({
+                    news: response.data
+                  })
+              }else{
+                axios.get(`https://vschool-cors.herokuapp.com?url=https://newsapi.org/v2/everything?language=en&sortBy=publishedAt&q=${key}&apiKey=${process.env.REACT_APP_NS}`)
+                .then(response => {
+                    if(response.data.totalResults >= 1){
+                    this.setState({
+                        news: response.data
+                      })
+                    }else{
+                        this.setState({news: response.data.totalResults})
+                    }
+                })
+              }
           })
       }
 
