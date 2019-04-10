@@ -19,7 +19,7 @@ class DataProvider extends Component {
     getNews = (key) => {
         axios.get(`https://vschool-cors.herokuapp.com?url=https://newsapi.org/v2/top-headlines?language=en&sortBy=publishedAt&q=${key}&apiKey=${process.env.REACT_APP_NS}`)
           .then(response => {
-              if (response.data.totalResults > 5){
+              if (response.data.totalResults > 2){
                 this.setState({
                     news: response.data
                   })
@@ -95,7 +95,5 @@ class DataProvider extends Component {
 export default DataProvider;
 
 export function withData(C) {
-    return props => <Consumer>
-        {value => <C {...value}{...props} />}
-    </Consumer>
+    return props => <Consumer>{value => <C {...value}{...props} />}</Consumer>
 }

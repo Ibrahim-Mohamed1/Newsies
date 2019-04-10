@@ -83,7 +83,6 @@ class News extends Component {
             }
         }
         const mappedNews = this.props.news.articles && this.props.news.articles.map((article, n) => {
-            let num = this.props.news
                 return (
                         <div style={styles.box} key={article.publishedAt+n}>
                             <h2 style={{ color: "black" }}>{article.title}</h2>

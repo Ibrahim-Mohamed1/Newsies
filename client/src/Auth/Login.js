@@ -101,7 +101,6 @@ class Login extends Component {
                 borderRadius: 10
             }
         }
-
         return (
             <div>
                 <div style={styles.nav}>

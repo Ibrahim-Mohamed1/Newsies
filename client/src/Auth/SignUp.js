@@ -100,6 +100,17 @@ class SignUp extends Component {
                 marginTop:100,
                 paddingTop: 40,
                 borderRadius: 10
+            },
+            error:{
+                color: "red", 
+                textAlign:"center", 
+                backgroundColor: "white", 
+                width: 200, 
+                display: "block", 
+                margin: "auto", 
+                marginTop: 20, 
+                borderRadius: 10, 
+                border:"solid .5px"
             }
         }
         return (
@@ -138,7 +149,7 @@ class SignUp extends Component {
                 </div>
                 {
                     this.state.errorMessage && 
-                    <p style={{color: "red", textAlign:"center", backgroundColor: "white", width: 200, display: "block", margin: "auto", marginTop: 20, borderRadius: 10, border:"solid .5px"}}>{this.state.errorMessage}</p>
+                    <p style={styles.error}>{this.state.errorMessage}</p>
                 }
             </div>
         );
