@@ -11,10 +11,8 @@ const App = () => {
   return (
     <div>
       <Switch>
-        <Route exact path="/" component={Login} />
-        <Route path="/signup" component={SignUp} />
-        <ProtectedRoute path="/home" component={Home} />
-        <ProtectedRoute path="/news" component={News} />
+        <Route exact path="/" component={Home} />
+        <Route path="/news" component={News} />
       </Switch>
       <Footer />
     </div>
