@@ -96,7 +96,5 @@ class DataProvider extends Component {
 export default DataProvider;
 
 export function withData(C) {
-    return props => <Consumer>
-        {value => <C {...value}{...props} />}
-    </Consumer>
+    return props => <Consumer>{value => <C {...value}{...props} />}</Consumer>
 }

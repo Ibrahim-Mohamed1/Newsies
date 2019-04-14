@@ -101,14 +101,13 @@ class Login extends Component {
                 borderRadius: 10
             }
         }
-
         return (
             <div>
                 <div style={styles.nav}>
                     <Link to="/"><img style={styles.logo} src="http://www.iconarchive.com/download/i99792/designbolts/free-multimedia/News-Mic-iPhone.ico" alt=""/></Link>
                     <Link style={styles.link} to="/signup"><button style={styles.signup}>Sign up</button></Link>
                 </div>
-                br
+                <br style={{margin:0}}/>
                 <div style={styles.box}>
                     <>
                     <h1 style={styles.loginTitle}>Log in</h1>
