@@ -77,7 +77,6 @@ class DataProvider extends Component {
     }
 
     render() {
-        console.log(this.state)
         return (
             <Provider value={{
                 signup: this.signup,
